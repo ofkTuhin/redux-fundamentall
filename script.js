@@ -5,18 +5,39 @@ const decrementEl = document.getElementById("decrement");
 const initialState = {
   value: 0,
 };
+
+// action identifire
+
+const INCREMENT = "increment";
+const DECREMENT = "deccrement";
+
+// action creator
+
+const increment = (value) => {
+  return {
+    type: INCREMENT,
+    payload: value,
+  };
+};
+const decrement = (value) => {
+  return {
+    type: DECREMENT,
+    payload: value,
+  };
+};
+
 // reducer function
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "increment":
+    case INCREMENT:
       return {
         ...state,
-        value: state.value + 1,
+        value: state.value + action.payload,
       };
-    case "decrement":
+    case DECREMENT:
       return {
         ...state,
-        value: state.value - 1,
+        value: state.value - action.payload,
       };
 
     default:
@@ -37,13 +58,9 @@ store.subscribe(render);
 
 // action
 incrementEl.addEventListener("click", () => {
-  store.dispatch({
-    type: "increment",
-  });
+  store.dispatch(increment(5));
 });
 
 decrementEl.addEventListener("click", () => {
-  store.dispatch({
-    type: "decrement",
-  });
+  store.dispatch(decrement(3));
 });
